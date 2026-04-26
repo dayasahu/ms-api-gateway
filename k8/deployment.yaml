@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: apigateway
-          image: dayasahu6077/gateway-server:28Dec2
-          imagePullPolicy: IfNotPresent
+          image: dayasahu6077/gateway-server:26April
+          imagePullPolicy: Always
           ports:
             - containerPort: 8888
           env:
@@ -27,6 +27,11 @@ spec:
               value: "dev"
             - name: SPRING_APPLICATION_NAME
               value: "apigateway"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SECRET
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
